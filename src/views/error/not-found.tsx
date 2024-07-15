@@ -1,7 +1,7 @@
-import { memo } from 'react'
-import notFoundSvg from '@/assets/svg/404.svg'
+import { memo } from "react"
+import notFoundSvg from "@/assets/svg/404.svg"
 
-import { NotFoundWrapper } from './style'
+import { NotFoundWrapper } from "./style"
 
 const NotFound = memo(() => {
   return (
