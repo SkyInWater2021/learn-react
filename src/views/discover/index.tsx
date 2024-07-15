@@ -1,4 +1,4 @@
-import React, { memo, Suspense } from "react"
+import { memo, Suspense } from "react"
 import { Link, Outlet } from "react-router-dom"
 
 const Discover = memo(() => {
