@@ -1,10 +1,33 @@
-import { memo } from "react"
-import { Button } from "antd"
+import { FC, memo } from "react"
+import { Button, Form, Input } from "antd"
+import { UserOutlined } from "@ant-design/icons"
 
-const LoginPanel = memo(() => {
+type FieldType = {
+  username?: string
+  password?: string
+}
+
+const LoginPanel: FC = memo(() => {
   return (
     <div>
-      <h2>LoginPanel</h2>
+      <Form autoComplete="off">
+        <Form.Item<FieldType>
+          label="账 号： "
+          name="username"
+          rules={[{ required: true, message: "Please input your username!" }]}
+        >
+          <Input size="large" placeholder="large size" prefix={<UserOutlined />} />
+        </Form.Item>
+
+        <Form.Item<FieldType>
+          label="密 码： "
+          name="password"
+          rules={[{ required: true, message: "Please input your password!" }]}
+        >
+          <Input.Password size="large" placeholder="large size" prefix={<UserOutlined />} />
+        </Form.Item>
+      </Form>
+
       <Button type="primary">我是按钮</Button>
     </div>
   )
