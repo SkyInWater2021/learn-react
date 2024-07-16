@@ -6,5 +6,7 @@
   "singleQuote": false,
   "quoteProps": "preserve",
   "trailingComma": "none",
-  "arrowParens": "avoid"
+  "arrowParens": "avoid",
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindConfig": "./tailwind.config.cjs"
 }
