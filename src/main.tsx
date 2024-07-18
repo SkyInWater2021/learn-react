@@ -3,7 +3,6 @@ import { Provider } from "react-redux"
 import { ConfigProvider, App as AntdApp } from "antd"
 import zhCN from "antd/locale/zh_CN"
 
-import Routes from "@/router"
 import store from "@/store"
 import antdTheme from "@/antd-theme"
 import App from "@/App"
@@ -15,9 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
     <ConfigProvider theme={antdTheme} locale={zhCN}>
       <AntdApp message={{ maxCount: 1 }}>
-        <App>
-          <Routes />
-        </App>
+        <App />
       </AntdApp>
     </ConfigProvider>
   </Provider>
