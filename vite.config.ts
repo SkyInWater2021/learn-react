@@ -10,6 +10,7 @@ export default ({ mode = "" }) => {
 
   return defineConfig({
     base: env.VITE_APP_ENV === "production" ? "./" : "./",
+    resolve: { alias: { "@": rootSrc } },
     plugins: [
       react(),
 
@@ -20,6 +21,27 @@ export default ({ mode = "" }) => {
         }
       })
     ],
-    resolve: { alias: { "@": rootSrc } }
+    server: {
+      hmr: true,
+      host: true,
+      port: 9999,
+      proxy: {
+        [env.VITE_APP_API_FLAG]: {
+          target: env.VITE_APP_API,
+          changeOrigin: true,
+          rewrite: path => path.replace(new RegExp(`^${env.VITE_APP_API_FLAG}`), "")
+        },
+        [env.VITE_APP_LOGIN_FLAG]: {
+          target: env.VITE_APP_LOGIN,
+          changeOrigin: true,
+          rewrite: path => path.replace(new RegExp(`^${env.VITE_APP_LOGIN_FLAG}`), "")
+        },
+        [env.VITE_GEO_SERVER_FLAG]: {
+          target: env.VITE_GEO_SERVER,
+          changeOrigin: true,
+          rewrite: path => path.replace(new RegExp(`^${env.VITE_GEO_SERVER_FLAG}`), "")
+        }
+      }
+    }
   })
 }

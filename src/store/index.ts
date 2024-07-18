@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { useSelector, useDispatch, TypedUseSelectorHook, shallowEqual } from "react-redux"
 
-import counterReducer from "./modules/counter"
+import * as commonSlice from "./common-store"
 
 const store = configureStore({
   reducer: {
-    counter: counterReducer
+    commonStore: commonSlice.reducer
   }
 })
 
@@ -15,7 +15,9 @@ type DispatchType = typeof store.dispatch
 
 // useAppSelector的hook
 export const useAppSelector: TypedUseSelectorHook<IRootState> = useSelector
+export const useEqualSelector: TypedUseSelectorHook<IRootState> = payload => useSelector(payload, shallowEqual)
 export const useAppDispatch: () => DispatchType = useDispatch
-export const shallowEqualApp = shallowEqual
+
+export { commonSlice }
 
 export default store

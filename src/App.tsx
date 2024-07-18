@@ -1,25 +1,14 @@
-import { Suspense } from "react"
-import { Link, Outlet } from "react-router-dom"
+import { FC, memo, ReactNode } from "react"
+import appMessage from "@/global/app-message"
 
-function App() {
-  return (
-    <>
-      <div className="header">
-        <Link to="/discover">发现音乐</Link>
-        <Link to="/mine">我的音乐</Link>
-        <Link to="/focus">关注</Link>
-        <Link to="/download">下载客户端</Link>
-      </div>
-
-      <div className="main">
-        <Suspense fallback={""}>
-          <Outlet />
-        </Suspense>
-      </div>
-
-      <div className="Footer"></div>
-    </>
-  )
+interface AppProps {
+  children: ReactNode
 }
+
+const App: FC<AppProps> = memo(({ children }) => {
+  appMessage()
+
+  return <>{children}</>
+})
 
 export default App

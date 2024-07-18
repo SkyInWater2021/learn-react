@@ -1,7 +1,7 @@
 body {
   font-size: 14px;
   color: var(--text-primary);
-  background-color: var(--page-gray);
+  background-color: var(--bg-primary);
 }
 
 body,

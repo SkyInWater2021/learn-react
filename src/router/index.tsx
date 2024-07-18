@@ -3,19 +3,20 @@ import { createBrowserRouter, RouterProvider, RouteObject } from "react-router-d
 
 import loginRoutes from "./login"
 import userManageRoutes from "./user-manage"
+import demoRoutes from "./header-observation"
 
-const App = lazy(() => import("@/App"))
+const AppLayout = lazy(() => import("@/layout"))
 const NotFound = lazy(() => import("@/views/error/not-found"))
 
 const routes: RouteObject[] = [
   {
     path: "/",
-    element: <App />,
-    children: []
+    element: <AppLayout />,
+    children: [...demoRoutes]
   },
-  { path: "*", element: <NotFound /> },
   ...loginRoutes,
-  ...userManageRoutes
+  ...userManageRoutes,
+  { path: "*", element: <NotFound /> }
 ]
 
 const commonRouter = createBrowserRouter(routes)

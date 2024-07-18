@@ -1,7 +1,8 @@
 import { createCancelToken, HYRequest } from "./request"
 import { CancelRequest } from "./request/types"
 
-const BASE_URL = import.meta.env.VITE_APP_BASE_URL
+const BASE_URL = import.meta.env.VITE_APP_API_FLAG ?? window.Api.baseUrl
+const LOGIN_URL = import.meta.env.VITE_APP_LOGIN_FLAG ?? window.Api.loginUrl
 const TIMEOUT = 1000 * 30
 
 /**
@@ -21,7 +22,8 @@ function getInstance(baseURL = BASE_URL, timeout = TIMEOUT) {
 }
 
 const requestInstance = getInstance()
+const requestLoginInstance = getInstance(LOGIN_URL)
 
-export { createCancelToken, getInstance, requestInstance }
+export { createCancelToken, getInstance, requestInstance, requestLoginInstance }
 
 export type { CancelRequest }
