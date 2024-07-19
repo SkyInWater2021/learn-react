@@ -3,7 +3,7 @@ import { commonApi, CommonApiTypes } from "@/services/api-common"
 import { menuApi } from "@/services/api-menu"
 import { message } from "@/global/app-message"
 import { localCache, CacheKeys } from "@/utils/cache-local"
-import { isAdmin, getSystemRole } from "@/permission"
+import { getSystemRole } from "@/permission"
 import { encryptECB, ENCRYPT_ECB } from "@/utils/encrypt"
 
 export interface CommonState {
@@ -32,30 +32,27 @@ export const accountLoginAction = createAsyncThunk(
     dispatch(changeUserInfoAction(userInfo))
     localCache.setCache(CacheKeys.USER_INFO, userInfo)
 
-    // step3 动态注册路由用户管理路由
-    if (isAdmin()) {
-      console.log("动态注册路由")
-    }
-
-    // step4 获取观测数据菜单
+    // step3 获取观测数据菜单
     // TODO 暂时未添加角色
     const role = "暂无" ?? getSystemRole()
     const { data: observationMenus } = await menuApi.fetchFactor(role)
     localCache.setCache(CacheKeys.MENUS_OBSERVATION, observationMenus)
 
-    // step5 动态添加观测数据菜单路由
+    // 跳转到/userManage
+
+    // step 动态添加观测数据菜单路由
     // ...
 
-    // step6 实况产品菜单
+    // step 实况产品菜单
     // ...
 
-    // step7 雷达产品菜单
+    // step 雷达产品菜单
     // ...
 
-    // step8 系统角色信息
+    // step 系统角色信息
     // ...
 
-    // step9 系统城市信息
+    // step 系统城市信息
     // ...
   }
 )

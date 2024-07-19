@@ -1,5 +1,7 @@
-import { FC, memo } from "react"
+import { FC, memo, useEffect } from "react"
 import { ConfigProvider } from "antd"
+
+import { localCache, sessionCache } from "@/utils/cache-local"
 
 import * as styled from "./styles"
 import LoginPanel from "./c-cpns/login-panel"
@@ -20,6 +22,11 @@ const themeObj = {
 }
 
 const Login: FC = memo(() => {
+  useEffect(() => {
+    localCache.clearCache()
+    sessionCache.clearCache()
+  }, [])
+
   return (
     <styled.LoginWrapper $startColor={startColor} $endColor={endColor}>
       <LoginPanel>

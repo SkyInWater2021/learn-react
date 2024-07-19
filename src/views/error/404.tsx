@@ -6,7 +6,7 @@ import { NotFoundWrapper } from "./style"
 const NotFound = memo(() => {
   return (
     <NotFoundWrapper>
-      <img width="50%" height="50%" src={notFoundSvg} alt="" />
+      <img width="50%" height="50%" src={notFoundSvg} alt="当前访问资源不存在" />
     </NotFoundWrapper>
   )
 })

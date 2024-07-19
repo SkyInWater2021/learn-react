@@ -1,5 +1,7 @@
 import { lazy } from "react"
 
-const Login = lazy(() => import("@/views/login"))
+const LoginOrigin = lazy(() => import("@/views/login"))
 
-export default Login
+const Login = <LoginOrigin></LoginOrigin>
+
+export { Login }

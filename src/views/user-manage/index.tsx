@@ -1,7 +1,18 @@
-import { memo } from "react"
+import { FC, memo } from "react"
 
-const UserManage = memo(() => {
-  return <div>UserManage</div>
+interface IProps {
+  name: string
+}
+
+const UserComponent: FC<IProps> = memo(props => {
+  const { name } = props
+  return (
+    <div>
+      <h2>{name}</h2>
+    </div>
+  )
 })
 
-export default UserManage
+UserComponent.displayName = "UserComponent"
+
+export default UserComponent
