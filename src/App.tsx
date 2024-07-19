@@ -1,12 +1,24 @@
-import Routes from "@/router"
-import appMessage from "@/global/app-message"
+import { ReactNode } from "react"
+import { ConfigProvider, App as AntdApp } from "antd"
+import zhCN from "antd/locale/zh_CN"
 
-function App() {
+import appMessage from "@/global/app-message"
+import { antdThemeConfig } from "@/styles"
+
+interface Props {
+  children: ReactNode
+}
+
+function App(props: Props) {
+  console.log("APP render")
+
   appMessage()
 
   return (
     <>
-      <Routes />
+      <ConfigProvider theme={antdThemeConfig} locale={zhCN}>
+        <AntdApp message={{ maxCount: 1 }}>{props.children}</AntdApp>
+      </ConfigProvider>
     </>
   )
 }

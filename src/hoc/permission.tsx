@@ -2,13 +2,10 @@ import React, { ReactNode } from "react"
 import { isAdmin } from "@/permission"
 import Forbidden from "@/views/error/403"
 
-interface PermissionProps {
+const Permission: React.FC<{
   children: ReactNode
-
   onlyAdmin?: boolean
-}
-
-const Permission: React.FC<PermissionProps> = props => {
+}> = props => {
   if (props?.onlyAdmin && !isAdmin()) return <Forbidden />
 
   return <>{props.children}</>

@@ -1,10 +1,16 @@
 import { RouteObject } from "react-router-dom"
+import Permission from "@/hoc/permission"
+
 import { UserManage } from "./cpns"
 
 const routes: RouteObject[] = [
   {
     path: "/userManage",
-    element: UserManage
+    element: (
+      <Permission onlyAdmin>
+        <UserManage />
+      </Permission>
+    )
   }
 ]
 

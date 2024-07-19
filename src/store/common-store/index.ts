@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
 import { commonApi, CommonApiTypes } from "@/services/api-common"
 import { menuApi } from "@/services/api-menu"
 import { message } from "@/global/app-message"
-import { localCache, CacheKeys } from "@/utils/cache-local"
 import { getSystemRole } from "@/permission"
+import { localCache, CacheKeys } from "@/utils/cache-local"
 import { encryptECB, ENCRYPT_ECB } from "@/utils/encrypt"
 
 export interface CommonState {
@@ -38,7 +38,7 @@ export const accountLoginAction = createAsyncThunk(
     const { data: observationMenus } = await menuApi.fetchFactor(role)
     localCache.setCache(CacheKeys.MENUS_OBSERVATION, observationMenus)
 
-    // 跳转到/userManage
+    // 跳转到/demo1
 
     // step 动态添加观测数据菜单路由
     // ...
@@ -58,7 +58,7 @@ export const accountLoginAction = createAsyncThunk(
 )
 
 const initialState: CommonState = {
-  userInfo: undefined,
+  userInfo: localCache.getCache(CacheKeys.USER_INFO),
   systemRoles: [],
   systemCities: []
 }

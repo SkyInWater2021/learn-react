@@ -1,18 +1,11 @@
 import { FC, memo } from "react"
 
-interface IProps {
-  name: string
-}
-
-const UserComponent: FC<IProps> = memo(props => {
-  const { name } = props
+const UserComponent: FC = memo(() => {
   return (
     <div>
-      <h2>{name}</h2>
+      <h2>用户管理页面</h2>
     </div>
   )
 })
-
-UserComponent.displayName = "UserComponent"
 
 export default UserComponent

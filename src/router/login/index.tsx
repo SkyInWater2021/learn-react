@@ -5,7 +5,7 @@ import { Login } from "./cpns"
 const routes: RouteObject[] = [
   {
     path: "/login",
-    element: Login
+    element: <Login />
   }
 ]
 

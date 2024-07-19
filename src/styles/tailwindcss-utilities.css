@@ -2,4 +2,12 @@
 
 @layer utilities {
   /*  * 添加自定义utilities */
+
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-right {
+    @apply flex items-center justify-end;
+  }
 }

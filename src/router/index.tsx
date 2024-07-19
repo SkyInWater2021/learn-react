@@ -1,12 +1,11 @@
-import { lazy } from "react"
 import { createBrowserRouter, RouterProvider, RouteObject } from "react-router-dom"
 
 import loginRoutes from "@/router/login"
 import userManageRoutes from "@/router/user-manage"
 import demoRoutes from "@/router/header-observation"
 
-const AppLayout = lazy(() => import("@/layout"))
-const NotFound = lazy(() => import("@/views/error/404"))
+import AppLayout from "@/layout"
+import NotFound from "@/views/error/404"
 
 const routes: RouteObject[] = [
   {
@@ -14,15 +13,17 @@ const routes: RouteObject[] = [
     element: <AppLayout />,
     children: [...demoRoutes]
   },
+  { path: "*", element: <NotFound /> },
+
   ...loginRoutes,
-  ...userManageRoutes,
-  { path: "*", element: <NotFound /> }
+  ...userManageRoutes
 ]
 
-const router = createBrowserRouter(routes)
+const appRouter = createBrowserRouter(routes)
+appRouter.subscribe(res => {
+  console.log(res)
+})
 
-function Routes() {
-  return <RouterProvider router={router}></RouterProvider>
-}
+const AppRouter = () => <RouterProvider router={appRouter}></RouterProvider>
 
-export default Routes
+export default AppRouter

@@ -1,7 +1,5 @@
 import { lazy } from "react"
 
-const LoginOrigin = lazy(() => import("@/views/login"))
-
-const Login = <LoginOrigin></LoginOrigin>
+const Login = lazy(() => import("@/views/login"))
 
 export { Login }

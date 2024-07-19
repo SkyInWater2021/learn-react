@@ -1,5 +1,12 @@
 :root {
+  --color-primary: #1c4693;
+
+  --border-primary: #1c469377;
+
+  --shadow-primary: #1c469311;
+
   --bg-primary: #f8f8f8;
+
   --text-primary: #333;
   --text-secondary: "#BFBFBF";
 }

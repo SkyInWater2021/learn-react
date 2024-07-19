@@ -1,6 +1,6 @@
 window.Api = {
-  baseUrl: "http://10.181.22.238:8089/api/internal",
-  geoServerUrl: 'http://10.181.22.238:8089/geoserver/wms',
+  baseUrl: "http://127.0.0.1:4523/m1/4827204-0-default",
+  geoServerUrl: 'http://127.0.0.1:4523/m1/4827204-0-default',
 
-  loginUrl: "http://10.181.22.238:8089/api",
+  loginUrl: "http://127.0.0.1:4523/m1/4827204-0-default",
 };

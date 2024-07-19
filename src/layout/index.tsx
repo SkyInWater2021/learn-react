@@ -1,24 +1,18 @@
 import React, { memo, Suspense } from "react"
-import { Outlet, Link } from "react-router-dom"
+import { Outlet } from "react-router-dom"
+
+import MainHeader from "./main-header"
+import PageLoading from "@/components/page-loading"
 
 const AppLayout: React.FC = memo(() => {
+  console.log("Layout Render")
   return (
     <div>
-      <div>
-        <h2>HEADER</h2>
-      </div>
-      <div>
-        <Link to="/demo1">DEMO1</Link>
-        <Link to="/demo2">DEMO2</Link>
-      </div>
+      <MainHeader />
 
-      <Suspense fallback={""}>
+      <Suspense fallback={<PageLoading />}>
         <Outlet />
       </Suspense>
-
-      <div>
-        <h2>FOOTER</h2>
-      </div>
     </div>
   )
 })
