@@ -1,7 +1,10 @@
-import { FC, memo, useState } from "react"
+import { FC, memo, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { Button, Form, Input, type FormProps, type FormRule } from "antd"
-import { useAppDispatch, commonSlice } from "@/store"
-import { message } from "@/global/app-message"
+import { useAppDispatch, commonSlice, menuSlice } from "@/store"
+import { menuApi } from "@/services/api-menu"
+import { appMessage } from "@/hooks"
+
 import { encryptECB, ENCRYPT_ECB } from "@/utils/encrypt"
 
 interface FieldType {
@@ -20,14 +23,32 @@ const rules: Record<keyof FieldType, FormRule[]> = {
 
 const LoginField: FC = memo(() => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
 
+  useEffect(() => {})
   const onFinish: FormProps<FieldType>["onFinish"] = ({ username, password }) => {
     setLoading(true)
     const mPassword = encryptECB(password, ENCRYPT_ECB)
-    const { accountLoginAction } = commonSlice
-    dispatch(accountLoginAction({ username, password: mPassword }))
-      .catch(() => message.error("账号或者密码错误!"))
+    dispatch(commonSlice.accountLoginAction({ username, password: mPassword }))
+      .unwrap()
+      .then(({ success, message, role = "" }) => {
+        if (!success) return appMessage.error(message)
+
+        navigate("/demo1")
+        // step 动态添加观测数据菜单路由
+        // ...
+        menuApi.fetchFactor(role).then(res => menuSlice.observationMenusAction(res.data ?? []))
+        // step 实况产品菜单
+        // ...
+        // step 雷达产品菜单
+        // ...
+        // step 系统角色信息
+        // ...
+        // step 系统城市信息
+        // ...
+      })
+      .catch(() => appMessage.error("登录时发生错误!"))
       .finally(() => setTimeout(() => setLoading(false), 200))
   }
 

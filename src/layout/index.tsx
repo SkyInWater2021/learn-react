@@ -1,18 +1,18 @@
-import React, { memo, Suspense } from "react"
-import { Outlet } from "react-router-dom"
+import React, { memo } from "react"
+import { NavLink, Outlet } from "react-router-dom"
+import { Button } from "antd"
 
 import MainHeader from "./main-header"
-import PageLoading from "@/components/page-loading"
 
 const AppLayout: React.FC = memo(() => {
-  console.log("Layout Render")
   return (
     <div>
       <MainHeader />
+      <NavLink to="/login">
+        <Button>去登录</Button>
+      </NavLink>
 
-      <Suspense fallback={<PageLoading />}>
-        <Outlet />
-      </Suspense>
+      <Outlet />
     </div>
   )
 })

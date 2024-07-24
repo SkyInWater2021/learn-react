@@ -17,8 +17,8 @@ export interface UserListItem {
   roleId: string
   roleName: string
   username: string
-  password: string
   area: string
+  // password: string
 }
 
 export interface RoleListItem {

@@ -1,5 +1,6 @@
-import { createCancelToken, HYRequest } from "./request"
 import { CancelRequest } from "./request/types"
+import { createCancelToken, HYRequest } from "./request"
+import { handleLoginTimeout } from "./login-time-out"
 
 const BASE_URL = import.meta.env.VITE_APP_API_FLAG ?? window.Api.baseUrl
 const LOGIN_URL = import.meta.env.VITE_APP_LOGIN_FLAG ?? window.Api.loginUrl
@@ -16,7 +17,7 @@ function getInstance(baseURL = BASE_URL, timeout = TIMEOUT) {
     baseURL,
     timeout,
     interceptorHooks: {
-      responseInterceptor: res => res.data
+      responseInterceptor: handleLoginTimeout
     }
   })
 }

@@ -13,12 +13,14 @@ import "./tailwindcss-utilities.css"
 
 const antdThemeConfig: ThemeConfig = {
   token: {
-    colorPrimary: "var(--color-primary)"
+    colorPrimary: "#1c4693"
   },
   components: {
+    Button: {
+      primaryShadow: "0 1px 0 #E4E7ED"
+    },
     Input: {
-      hoverBorderColor: "var(--border-primary)",
-      activeShadow: "0 0 0 2px var(--border-primary)"
+      activeShadow: "0 1px 0 #E4E7ED"
     }
   }
 }

@@ -1,65 +1,49 @@
 import { memo } from "react"
-import type { MenuProps } from "antd"
-import { Dropdown, message, Space } from "antd"
-import { UserOutlined, DownOutlined } from "@ant-design/icons"
+import { Dropdown, Space } from "antd"
+import { UserOutlined, DownOutlined, RobotOutlined } from "@ant-design/icons"
 import { useEqualSelector } from "@/store"
+import { isAdmin } from "@/permission"
+import { useNavigate } from "react-router-dom"
 
-const handleMenuClick: MenuProps["onClick"] = e => {
-  message.info("Click on menu item.")
-  console.log("click", e)
-}
+function getDropMenus(navigate: ReturnType<typeof useNavigate>) {
+  const systemAdmin = isAdmin()
+  const adminMenus = ["manage"]
 
-const items: MenuProps["items"] = [
-  {
-    label: "1st menu item",
-    key: "1",
-    icon: <UserOutlined />
-  },
-  {
-    label: "2nd menu item",
-    key: "2",
-    icon: <UserOutlined />
-  },
-  {
-    label: "3rd menu item",
-    key: "3",
-    icon: <UserOutlined />,
-    danger: true
-  },
-  {
-    label: "4rd menu item",
-    key: "4",
-    icon: <UserOutlined />,
-    danger: true,
-    disabled: true
-  }
-]
-
-const menuProps = {
-  items,
-  onClick: handleMenuClick
+  return [
+    {
+      label: "用户管理",
+      key: "manage",
+      icon: <RobotOutlined />,
+      onClick: () => navigate("/userManage")
+    },
+    {
+      label: "退出登录",
+      key: "loginOut",
+      icon: <UserOutlined />,
+      onClick: () => navigate("/login")
+    }
+  ].filter(item => !adminMenus.includes(item!.key) || systemAdmin)
 }
 
 const HeaderRight = memo(() => {
-  console.log("HeaderRight Render")
+  const navigate = useNavigate()
+  const downMenus = getDropMenus(navigate)
 
-  const { userInfo } = useEqualSelector(({ commonStore }) => {
-    return {
-      userInfo: commonStore.userInfo
-    }
-  })
+  const { userInfo } = useEqualSelector(({ commonStore }) => ({
+    userInfo: commonStore.userInfo
+  }))
 
   return (
-    <div className="flex-right flex-1 pr-10">
+    <>
       <div className="w-fit cursor-pointer">
-        <Dropdown menu={menuProps}>
+        <Dropdown menu={{ items: downMenus }} placement="bottom">
           <Space>
             <span>{userInfo?.username}</span>
             <DownOutlined />
           </Space>
         </Dropdown>
       </div>
-    </div>
+    </>
   )
 })
 
