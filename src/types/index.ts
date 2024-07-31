@@ -9,5 +9,5 @@ export interface SelectItem<T = string | number, K = Record<string, Primitive>> 
 export interface Response<T = unknown> {
   code: number
   msg: string
-  data: T
+  data: T | null
 }

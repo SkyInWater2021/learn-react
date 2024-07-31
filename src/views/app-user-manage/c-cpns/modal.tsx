@@ -1,7 +1,7 @@
 import { memo } from "react"
 
-const Modal = memo(() => {
-  return <div>Modal</div>
+const modal = memo(() => {
+  return <div>modal</div>
 })
 
-export default Modal
+export default modal

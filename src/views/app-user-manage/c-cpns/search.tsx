@@ -1,46 +1,44 @@
-import React, { useState } from "react"
-import { Button, Form, Input, Radio } from "antd"
+import React, { useEffect } from "react"
+import { Form, Input, Button, type FormProps } from "antd"
+import { SearchOutlined } from "@ant-design/icons"
 
-type LayoutType = Parameters<typeof Form>[0]["layout"]
+import type { CommonApiTypes } from "@/services/api-common"
 
-const App: React.FC = () => {
+type SearchParams = CommonApiTypes.SystemUsersPayload
+
+interface Props {
+  onSearch: (payload: SearchParams) => void
+  loading: boolean
+}
+
+const App: React.FC<Props> = props => {
+  const { onSearch } = props
   const [form] = Form.useForm()
-  const [formLayout, setFormLayout] = useState<LayoutType>("horizontal")
-
-  const onFormLayoutChange = ({ layout }: { layout: LayoutType }) => {
-    setFormLayout(layout)
+  const { loading } = props
+  const onFinish: FormProps["onFinish"] = payload => {
+    onSearch(payload)
   }
 
-  const formItemLayout = formLayout === "horizontal" ? { labelCol: { span: 4 }, wrapperCol: { span: 14 } } : null
-
-  const buttonItemLayout = formLayout === "horizontal" ? { wrapperCol: { span: 14, offset: 4 } } : null
+  useEffect(() => {
+    onSearch({})
+  }, [onSearch])
 
   return (
-    <Form
-      {...formItemLayout}
-      layout={formLayout}
-      form={form}
-      initialValues={{ layout: formLayout }}
-      onValuesChange={onFormLayoutChange}
-      style={{ maxWidth: formLayout === "inline" ? "none" : 600 }}
-    >
-      <Form.Item label="Form Layout" name="layout">
-        <Radio.Group value={formLayout}>
-          <Radio.Button value="horizontal">Horizontal</Radio.Button>
-          <Radio.Button value="vertical">Vertical</Radio.Button>
-          <Radio.Button value="inline">Inline</Radio.Button>
-        </Radio.Group>
-      </Form.Item>
-      <Form.Item label="Field A">
-        <Input placeholder="input placeholder" />
-      </Form.Item>
-      <Form.Item label="Field B">
-        <Input placeholder="input placeholder" />
-      </Form.Item>
-      <Form.Item {...buttonItemLayout}>
-        <Button type="primary">Submit</Button>
-      </Form.Item>
-    </Form>
+    <>
+      <Form layout="inline" form={form} initialValues={{}} onFinish={onFinish}>
+        <Form.Item<SearchParams> name="username">
+          <Input
+            readOnly={loading}
+            placeholder="请输入用户名"
+            prefix={<div className="text-textSecondary">用户名： </div>}
+          />
+        </Form.Item>
+
+        <Form.Item>
+          <Button htmlType="submit" type="primary" loading={loading} shape="circle" icon={<SearchOutlined />}></Button>
+        </Form.Item>
+      </Form>
+    </>
   )
 }
 
